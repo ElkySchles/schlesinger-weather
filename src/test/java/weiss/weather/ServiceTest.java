@@ -28,5 +28,25 @@ public class ServiceTest {
         assertTrue(weather.getMain().getTemp() > 0);
     }
 
+    @Test
+    public void getFiveDayForecast(){
+        //given
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build();
+        Service service2 = retrofit.create(Service.class);
+        //when
+        FiveDayForecast weather2 = service2.getFiveDayForecast("New York").blockingFirst();
+        //then
+        assertNotNull(weather2);
+        assertNotNull(weather2.getList().get(0).getClouds());
+        assertTrue(weather2.getList().get(0).getVisibility() > 0);
+
+
+
+    }
+
 
 }

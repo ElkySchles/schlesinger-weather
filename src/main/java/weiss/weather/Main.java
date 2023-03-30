@@ -1,58 +1,103 @@
+
 package weiss.weather;
 
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+
+@SuppressWarnings("unused")
 public class Main {
-    private double temp;
-    private double feelsLike;
-    private double tempMin;
-    private double tempMax;
-    private double pressure;
-    private double humidity;
 
-    public double getTemp() {
-        return temp;
-    }
 
-    public void setTemp(int input) {
-        this.temp = input;
-    }
+    private Double feelsLike;
 
-    public double getFeelsLike() {
+    private Long grndLevel;
+
+    private Long humidity;
+
+    private Long pressure;
+
+    private Long seaLevel;
+
+    private Double temp;
+
+    private Double tempKf;
+
+    private Double tempMax;
+
+    private Double tempMin;
+
+    public Double getFeelsLike() {
         return feelsLike;
     }
 
-    public void setFeelsLike(int input) {
-        this.feelsLike = input;
+    public void setFeelsLike(Double feelsLike) {
+        this.feelsLike = feelsLike;
     }
 
-    public double getTempMin() {
-        return tempMin;
+    public Long getGrndLevel() {
+        return grndLevel;
     }
 
-    public void setTempMin(int input) {
-        this.tempMin = input;
+    public void setGrndLevel(Long grndLevel) {
+        this.grndLevel = grndLevel;
     }
 
-    public double getTempMax() {
-        return tempMax;
-    }
-
-    public void setTempMax(int input) {
-        this.tempMax = input;
-    }
-
-    public double getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(int input) {
-        this.pressure = input;
-    }
-
-    public double getHumidity() {
+    public Long getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(int input) {
-        this.humidity = input;
+    public void setHumidity(Long humidity) {
+        this.humidity = humidity;
     }
+
+    public Long getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(Long pressure) {
+        this.pressure = pressure;
+    }
+
+    public Long getSeaLevel() {
+        return seaLevel;
+    }
+
+    public void setSeaLevel(Long seaLevel) {
+        this.seaLevel = seaLevel;
+    }
+
+    public Double getTemp() {
+        return temp;
+    }
+
+    public void setTemp(Double temp) {
+        this.temp = temp;
+    }
+
+    public Double getTempKf() {
+        return tempKf;
+    }
+
+    public void setTempKf(Double tempKf) {
+        this.tempKf = tempKf;
+    }
+
+    public Double getTempMax() {
+        return tempMax;
+    }
+
+    public void setTempMax(Double tempMax) {
+        this.tempMax = tempMax;
+    }
+
+    public Double getTempMin() {
+        return tempMin;
+    }
+
+    public void setTempMin(Double tempMin) {
+        this.tempMin = tempMin;
+    }
+
 }
