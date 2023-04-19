@@ -69,10 +69,12 @@ public class CurrentWeather {
     }
 
     public Wind getWind() {
+
         return wind;
     }
 
     public void setWind(Wind input) {
+
         this.wind = input;
     }
 
