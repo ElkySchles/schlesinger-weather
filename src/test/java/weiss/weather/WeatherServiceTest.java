@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WeatherServiceTest {
+
     @Test
     public void getCurrentWeather(){
 
@@ -29,6 +30,7 @@ public class WeatherServiceTest {
 
     @Test
     public void getFiveDayForecast(){
+
 
         //given
         Retrofit retrofit = new Retrofit.Builder()
