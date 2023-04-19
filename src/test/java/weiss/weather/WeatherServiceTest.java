@@ -1,15 +1,13 @@
 package weiss.weather;
 
-import io.reactivex.rxjava3.core.Observable;
 import org.junit.jupiter.api.Test;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ServiceTest {
+public class WeatherServiceTest {
     @Test
     public void getCurrentWeather(){
 
@@ -20,7 +18,7 @@ public class ServiceTest {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
 
-        Service service = retrofit.create(Service.class);
+        WeatherService service = retrofit.create(WeatherService.class);
         //when
         CurrentWeather weather = service.getCurrentWeather("New York").blockingFirst();
         //then
@@ -38,7 +36,7 @@ public class ServiceTest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
-        Service service = retrofit.create(Service.class);
+        WeatherService service = retrofit.create(WeatherService.class);
         //when
         FiveDayForecast weather = service.getFiveDayForecast("New York").blockingFirst();
         //then

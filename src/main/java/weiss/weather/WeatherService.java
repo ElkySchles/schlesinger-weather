@@ -4,7 +4,7 @@ import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface Service {
+public interface WeatherService {
     @GET("/data/2.5/weather?appid=f3ec282cc665b6c18620c103602eba6b&units=imperial")
     Observable<CurrentWeather> getCurrentWeather(@Query("q") String location);
 
