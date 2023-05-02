@@ -10,8 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CurrentWeatherFrame extends JFrame {
-    JButton submit = new JButton("Submit");
-    TextField location = new TextField("New York");
+    private JButton submit = new JButton("Submit");
+    private TextField location = new TextField("New York");
 
     private CurrentWeatherView view = new CurrentWeatherView();
     public CurrentWeatherFrame(){
@@ -36,6 +36,7 @@ public class CurrentWeatherFrame extends JFrame {
         //JButton submit = new JButton("Submit");
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
+
         setContentPane(mainPanel);
         mainPanel.add(view, BorderLayout.CENTER);
         JPanel northPanel = new JPanel();
@@ -43,14 +44,13 @@ public class CurrentWeatherFrame extends JFrame {
         northPanel.add(location, BorderLayout.CENTER);
         northPanel.add(submit, BorderLayout.EAST);
         mainPanel.add(northPanel, BorderLayout.NORTH);
-
+        FiveDayForecast ogWeather = service.getFiveDayForecast("New York").blockingFirst();
+        view.setFiveDayForecast(ogWeather);
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FiveDayForecast weather = service.getFiveDayForecast(location.getText()).blockingFirst();
                 view.setFiveDayForecast(weather);
-
-                requestFocus();
             }
         });
 

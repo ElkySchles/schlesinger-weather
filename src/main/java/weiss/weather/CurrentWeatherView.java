@@ -10,7 +10,6 @@ import java.awt.*;
 public class CurrentWeatherView extends JComponent {
 
 
-    CurrentWeatherFrame frame;
     FiveDayForecast weather;
     @Override
     protected void paintComponent(Graphics g){
