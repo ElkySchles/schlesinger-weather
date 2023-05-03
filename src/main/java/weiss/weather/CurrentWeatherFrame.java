@@ -46,19 +46,19 @@ public class CurrentWeatherFrame extends JFrame {
         mainPanel.add(northPanel, BorderLayout.NORTH);
 
         //FiveDayForecast ogWeather = service.getFiveDayForecast("New York").;
-        setDisposable("New York");
+        requestForecast("New York");
 
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //FiveDayForecast weather = service.getFiveDayForecast(location.getText()).blockingFirst();
-                setDisposable(location.getText());
+                requestForecast(location.getText());
             }
         });
 
     }
 
-    public void setDisposable(String location) {
+    public void requestForecast(String location) {
 
         Disposable disposable = service.getFiveDayForecast(location)
                 .subscribeOn(Schedulers.io())
