@@ -14,7 +14,7 @@ public class FiveDayForecast {
 
     private String cod;
 
-    private java.util.List<weiss.weather.List> list;
+    private java.util.List<ThreeHourWeather> list;
 
     private Long message;
 
@@ -48,12 +48,12 @@ public class FiveDayForecast {
         this.cod = cod;
     }
 
-    public java.util.List<weiss.weather.List> getList() {
+    public java.util.List<ThreeHourWeather> getList() {
 
         return list;
     }
 
-    public void setList(java.util.List<weiss.weather.List> list) {
+    public void setList(java.util.List<ThreeHourWeather> list) {
 
         this.list = list;
     }

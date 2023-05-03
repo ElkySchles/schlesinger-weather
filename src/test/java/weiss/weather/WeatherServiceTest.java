@@ -43,8 +43,8 @@ public class WeatherServiceTest {
         FiveDayForecast weather = service.getFiveDayForecast("New York").blockingFirst();
         //then
         assertNotNull(weather);
-        assertNotNull(weather.getList().get(0).getClouds());
-        assertTrue(weather.getList().get(0).getVisibility() > 0);
+        assertNotNull(weather.getList().get(0).getMain().getTemp());
+        assertTrue(weather.getList().get(0).getMain().getTemp() > -100);
 
 
 
