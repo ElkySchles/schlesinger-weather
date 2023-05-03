@@ -1,5 +1,7 @@
 package weiss.weather;
 
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -9,31 +11,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+
 public class CurrentWeatherFrame extends JFrame {
     private JButton submit = new JButton("Submit");
     private TextField location = new TextField("New York");
 
     private CurrentWeatherView view = new CurrentWeatherView();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://api.openweathermap.org")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build();
+    WeatherService service = retrofit.create(WeatherService.class);
+
+
+
     public CurrentWeatherFrame(){
         setSize(800,600);
         setTitle("Current Weather");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-
-
-        //creating the information from the weather api
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .build();
-        WeatherService service = retrofit.create(WeatherService.class);
-
-
         //setting the panel layout
 
-        //TextField location = new TextField("ENTER LOCATION" );
-        //JButton submit = new JButton("Submit");
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -44,20 +44,33 @@ public class CurrentWeatherFrame extends JFrame {
         northPanel.add(location, BorderLayout.CENTER);
         northPanel.add(submit, BorderLayout.EAST);
         mainPanel.add(northPanel, BorderLayout.NORTH);
-        FiveDayForecast ogWeather = service.getFiveDayForecast("New York").blockingFirst();
-        view.setFiveDayForecast(ogWeather);
+
+        //FiveDayForecast ogWeather = service.getFiveDayForecast("New York").;
+        setDisposable("New York");
+
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FiveDayForecast weather = service.getFiveDayForecast(location.getText()).blockingFirst();
-                view.setFiveDayForecast(weather);
+                //FiveDayForecast weather = service.getFiveDayForecast(location.getText()).blockingFirst();
+                setDisposable(location.getText());
             }
         });
 
-
-
     }
 
+    public void setDisposable(String location) {
 
+        Disposable disposable = service.getFiveDayForecast(location)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(
+                        fiveDayForecast -> {
+                            view.setFiveDayForecast(fiveDayForecast);
+                        }
+                        ,
+                        Throwable::printStackTrace
+
+                );
+    }
 
 }
