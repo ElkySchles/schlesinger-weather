@@ -25,7 +25,7 @@ public class CurrentWeatherFrame extends JFrame {
             .build();
     WeatherService service = retrofit.create(WeatherService.class);
 
-
+    private ForecastWeatherController controller;
 
     public CurrentWeatherFrame(){
         setSize(800,600);
@@ -44,33 +44,21 @@ public class CurrentWeatherFrame extends JFrame {
         northPanel.add(location, BorderLayout.CENTER);
         northPanel.add(submit, BorderLayout.EAST);
         mainPanel.add(northPanel, BorderLayout.NORTH);
+        controller = new ForecastWeatherController(view, service);
 
         //FiveDayForecast ogWeather = service.getFiveDayForecast("New York").;
-        requestForecast("New York");
+        controller.requestForecast("New York");
 
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //FiveDayForecast weather = service.getFiveDayForecast(location.getText()).blockingFirst();
-                requestForecast(location.getText());
+                controller.requestForecast(location.getText());
+
             }
         });
 
     }
 
-    public void requestForecast(String location) {
 
-        Disposable disposable = service.getFiveDayForecast(location)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.newThread())
-                .subscribe(
-                        fiveDayForecast -> {
-                            view.setFiveDayForecast(fiveDayForecast);
-                        }
-                        ,
-                        Throwable::printStackTrace
-
-                );
-    }
 
 }
