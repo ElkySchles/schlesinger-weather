@@ -10,24 +10,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.inject.Inject;
+
 
 
 
 public class CurrentWeatherFrame extends JFrame {
     private JButton submit = new JButton("Submit");
     private TextField location = new TextField("New York");
-
     private CurrentWeatherView view = new CurrentWeatherView();
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build();
-    WeatherService service = retrofit.create(WeatherService.class);
-
     private ForecastWeatherController controller;
 
-    public CurrentWeatherFrame(){
+
+
+
+    @Inject
+    public CurrentWeatherFrame(CurrentWeatherView view,
+                               ForecastWeatherController controller
+    ){
+        this.view = view;
+        this.controller = controller;
         setSize(800,600);
         setTitle("Current Weather");
         setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -2,10 +2,12 @@ package weiss.weather;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import javax.inject.Inject;
 
 public class ForecastWeatherController {
     private CurrentWeatherView view;
     private WeatherService service;
+    @Inject
     public ForecastWeatherController(
 
         CurrentWeatherView view,
@@ -23,13 +25,8 @@ public class ForecastWeatherController {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(
-                        fiveDayForecast -> {
-                            view.setFiveDayForecast(fiveDayForecast);
-                        }
-                        ,
-                        Throwable::printStackTrace
-
-                );
+                        fiveDayForecast -> view.setFiveDayForecast(fiveDayForecast),
+                        Throwable::printStackTrace);
     }
 
 
