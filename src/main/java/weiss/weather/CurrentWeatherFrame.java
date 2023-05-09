@@ -46,7 +46,7 @@ public class CurrentWeatherFrame extends JFrame {
         northPanel.add(location, BorderLayout.CENTER);
         northPanel.add(submit, BorderLayout.EAST);
         mainPanel.add(northPanel, BorderLayout.NORTH);
-        controller = new ForecastWeatherController(view, service);
+
 
         //FiveDayForecast ogWeather = service.getFiveDayForecast("New York").;
         controller.requestForecast("New York");
