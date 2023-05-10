@@ -18,7 +18,7 @@ import javax.inject.Inject;
 public class CurrentWeatherFrame extends JFrame {
     private JButton submit = new JButton("Submit");
     private TextField location = new TextField("New York");
-    private CurrentWeatherView view = new CurrentWeatherView();
+    private CurrentWeatherView view;
     private ForecastWeatherController controller;
 
 
