@@ -5,8 +5,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import javax.inject.Inject;
 
 public class ForecastWeatherController {
-    private CurrentWeatherView view;
-    private WeatherService service;
+    private final CurrentWeatherView view;
+
+    private final WeatherService service;
+
     @Inject
     public ForecastWeatherController(
 
