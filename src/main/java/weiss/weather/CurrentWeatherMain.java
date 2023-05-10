@@ -1,8 +1,15 @@
 package weiss.weather;
 
+
+
 public class CurrentWeatherMain {
 
     public static void main(String[] args) {
-        new CurrentWeatherFrame().setVisible(true);
+
+        ForecastWeatherComponent component = DaggerForecastWeatherComponent
+                .builder()
+                .build();
+        CurrentWeatherFrame frame = component.providesCurrentWeatherFrame();
+        frame.setVisible(true);
     }
 }

@@ -6,10 +6,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class CurrentWeatherView extends JComponent {
 
+    @Inject
+    public CurrentWeatherView(){
 
+    }
     FiveDayForecast weather;
     @Override
     protected void paintComponent(Graphics g){
