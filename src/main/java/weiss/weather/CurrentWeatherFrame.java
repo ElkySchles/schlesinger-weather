@@ -6,6 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import javax.inject.Named;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,16 +21,21 @@ public class CurrentWeatherFrame extends JFrame {
     private TextField location = new TextField("New York");
     private CurrentWeatherView view;
     private ForecastWeatherController controller;
+    private CurrentWeatherController currentWeatherController;
 
 
 
 
     @Inject
     public CurrentWeatherFrame(CurrentWeatherView view,
-                               ForecastWeatherController controller
+                               ForecastWeatherController controller,
+                               CurrentWeatherController currentWeatherController,
+                               @Named("imageLabel") JLabel imageLabel,
+                               @Named("degreesLabel") JLabel degreesLabel
     ){
         this.view = view;
         this.controller = controller;
+        this.currentWeatherController = currentWeatherController;
         setSize(800,600);
         setTitle("Current Weather");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -47,6 +53,11 @@ public class CurrentWeatherFrame extends JFrame {
         northPanel.add(submit, BorderLayout.EAST);
         mainPanel.add(northPanel, BorderLayout.NORTH);
 
+        JPanel currentWeatherPanel = new JPanel();
+        currentWeatherPanel.add(imageLabel);
+        currentWeatherPanel.add(degreesLabel);
+        northPanel.add(currentWeatherPanel, BorderLayout.SOUTH);
+
 
         //FiveDayForecast ogWeather = service.getFiveDayForecast("New York").;
         controller.requestForecast("New York");
@@ -55,10 +66,12 @@ public class CurrentWeatherFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.requestForecast(location.getText());
+                currentWeatherController.requestForecast(location.getText());
 
             }
         });
-
+        controller.requestForecast(location.getText());
+        currentWeatherController.requestForecast(location.getText());
     }
 
 

@@ -27,7 +27,7 @@ public class ForecastWeatherController {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(
-                        fiveDayForecast -> view.setFiveDayForecast(fiveDayForecast),
+                        view::setFiveDayForecast,
                         Throwable::printStackTrace);
     }
 
